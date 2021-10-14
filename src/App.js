@@ -3,7 +3,7 @@ import "./App.css";
 
 function App() {
   const [time, setTime] = useState(0);
-  const [timeOn, setTimeOn] = useState(false);
+  const [timerOn, setTimerOn] = useState(false);
 
   // timeOn이 변경될때마다 useEffect실행
   // setInterval 사용하여 시간표시
@@ -11,7 +11,7 @@ function App() {
     let interval = null;
 
     // timeOn이 true라면 +10, false라면 clear
-    if (timeOn) {
+    if (timerOn) {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 10);
       }, 10);
@@ -20,11 +20,12 @@ function App() {
     }
 
     return () => clearInterval(interval);
-  }, [timeOn]);
+  }, [timerOn]);
 
   return (
-    <div className="App">
-      <div>
+    <div className="Timers">
+      <h2>Stopwatch</h2>
+      <div id="display">
         {/* 시간(시,분,초 별로) 표시 */}
         {/* slice(-2) 끝에서 2자리만 표시 */}
         {/* floor 소숫점 제거 */}
@@ -32,18 +33,20 @@ function App() {
         <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
         <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
       </div>
-      <div>
-        {/* Start to Reset버튼 생성 */}
-        {/* timeOn=true,time=0 일때만 Start버튼 표시 */}
-        {!timeOn && time === 0 && (
-          <button onClick={() => setTimeOn(true)}>Start</button>
+      {/* Start to Reset버튼 생성 */}
+      {/* timerOn=true,time=0 일때만 Start버튼 표시 */}
+      <div id="buttons">
+        {!timerOn && time === 0 && (
+          <button onClick={() => setTimerOn(true)}>Start</button>
         )}
-        {timeOn && <button onClick={() => setTimeOn(false)}>Stop</button>}
-        {/* timeOn=false이고 time=0이 아닐때만 Resume,Reset버튼 표시 */}
-        {!timeOn &&
-          time === 0(<button onClick={() => setTimeOn(true)}>Resume</button>)}
-        {!timeOn &&
-          time === 0(<button onClick={() => setTime(0)}>Reset</button>)}
+        {timerOn && <button onClick={() => setTimerOn(false)}>Stop</button>}
+        {/* timerOn=false이고 time=0이 아닐때만 Resume,Reset버튼 표시 */}
+        {!timerOn && time > 0 && (
+          <button onClick={() => setTime(0)}>Reset</button>
+        )}
+        {!timerOn && time > 0 && (
+          <button onClick={() => setTimerOn(true)}>Resume</button>
+        )}
       </div>
     </div>
   );
