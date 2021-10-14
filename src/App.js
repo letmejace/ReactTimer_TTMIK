@@ -34,10 +34,16 @@ function App() {
       </div>
       <div>
         {/* Start to Reset버튼 생성 */}
-        <button onClick={() => setTimeOn(true)}>Start</button>
-        <button onClick={() => setTimeOn(false)}>Stop</button>
-        <button onClick={() => setTimeOn(true)}>Resume</button>
-        <button onClick={() => setTime(0)}>Reset</button>
+        {/* timeOn=true,time=0 일때만 Start버튼 표시 */}
+        {!timeOn && time === 0 && (
+          <button onClick={() => setTimeOn(true)}>Start</button>
+        )}
+        {timeOn && <button onClick={() => setTimeOn(false)}>Stop</button>}
+        {/* timeOn=false이고 time=0이 아닐때만 Resume,Reset버튼 표시 */}
+        {!timeOn &&
+          time === 0(<button onClick={() => setTimeOn(true)}>Resume</button>)}
+        {!timeOn &&
+          time === 0(<button onClick={() => setTime(0)}>Reset</button>)}
       </div>
     </div>
   );
