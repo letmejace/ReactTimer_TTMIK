@@ -23,9 +23,9 @@ function App() {
   }, [timerOn]);
 
   return (
-    <div className="Timers">
-      <h2>Stopwatch</h2>
-      <div id="display">
+    <div className="section-center">
+      <h2 className="time-container">Timer</h2>
+      <div className="time-show">
         {/* 시간(시,분,초 별로) 표시 */}
         {/* slice(-2) 끝에서 2자리만 표시 */}
         {/* floor 소숫점 제거 */}
@@ -33,19 +33,30 @@ function App() {
         <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
         <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
       </div>
+
       {/* Start to Reset버튼 생성 */}
       {/* timerOn=true,time=0 일때만 Start버튼 표시 */}
-      <div id="buttons">
+      <div className="time-container">
         {!timerOn && time === 0 && (
-          <button onClick={() => setTimerOn(true)}>Start</button>
+          <button className="show-btn" onClick={() => setTimerOn(true)}>
+            Start
+          </button>
         )}
-        {timerOn && <button onClick={() => setTimerOn(false)}>Stop</button>}
+        {timerOn && (
+          <button className="show-btn" onClick={() => setTimerOn(false)}>
+            Stop
+          </button>
+        )}
         {/* timerOn=false이고 time=0이 아닐때만 Resume,Reset버튼 표시 */}
         {!timerOn && time > 0 && (
-          <button onClick={() => setTime(0)}>Reset</button>
+          <button className="show-btn" onClick={() => setTime(0)}>
+            Reset
+          </button>
         )}
         {!timerOn && time > 0 && (
-          <button onClick={() => setTimerOn(true)}>Resume</button>
+          <button className="show-btn" onClick={() => setTimerOn(true)}>
+            Resume
+          </button>
         )}
       </div>
     </div>
