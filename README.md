@@ -1,3 +1,6 @@
+## Preview 
+![timer](https://user-images.githubusercontent.com/65179725/137449144-dc72f9a1-3025-40d6-a8db-49842174d978.PNG)
+
 ## 웹타이머 구현
 
 - time.yah.ac 크론을 제작해보세요.
